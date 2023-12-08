@@ -8,19 +8,24 @@ bottom_right_corner = None
 
 # Mouse callback function
 def draw_square(event, x, y, flags, param):
-    global top_left_corner, bottom_right_corner, drawing, sx, sy
+    global top_left_corner, bottom_right_corner, drawing, x1, y1
 
     if event == cv2.EVENT_LBUTTONDOWN:
         drawing = True
         top_left_corner = (x, y)
-        sx, sy = x, y
+        x1, y1 = x, y
 
     elif event == cv2.EVENT_LBUTTONUP:
         drawing = False
-        bottom_right_corner = (sx + min(x,y),sy + min(x,y))
+        dist = int(np.sqrt((x-x1)**2 + (y-y1)**2) / np.sqrt(2))
+        x2, y2 = x1 + dist, y1 + dist
+        bottom_right_corner = (x2,y2)
         cv2.rectangle(img, top_left_corner, bottom_right_corner, (255, 0, 0), 2)
+        c = ((x1 + x2)//2,(y1 + y2)//2)
+        r = int(np.sqrt((x2-x1)**2)/2)
+        cv2.circle(img, c, r, color=(255, 0, 0), thickness=2)
 
-# Create a black image and a window
+# Create a white image and a window
 img = np.zeros((512, 512, 3), np.uint8) + 255
 cv2.namedWindow('Rectangle Drawer')
 

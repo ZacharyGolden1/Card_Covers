@@ -14,9 +14,10 @@ def draw_circles(img, c, r, x1, y1, x2, y2):
     # initially we draw 4 circles since there are 4 areas in the square that
     # have gaps: UR, DR, DL, UL
     a = np.array([c[0] + r*math.cos(np.pi/4),c[1] - r*math.sin(np.pi/4)])
+    d = np.array([c[0] - r*math.cos(np.pi/4),c[1] + r*math.sin(np.pi/4)])
     b = np.array([x2, y1])
     m = np.linalg.norm(b-a)
-    M = np.linalg.norm(b-c)
+    M = np.linalg.norm(b-d)
     n = (m**2)/M
     r = int((m - n)/2)
     c1 = (int((a[0] + (b[0]-n/np.sqrt(2)))/2),
@@ -25,12 +26,12 @@ def draw_circles(img, c, r, x1, y1, x2, y2):
     cv2.circle(img, c1, r, color=(255, 0, 0), thickness=2)
 
     ## DEBUG
-    # draw a point at a
-    cv2.circle(img, (int(a[0]),int(a[1])), 2, color=(0, 255, 0), thickness=2)
-    # draw a point at b
-    cv2.circle(img, (int(b[0]),int(b[1])), 2, color=(0, 255, 0), thickness=2)
-    # draw a point at c1
-    cv2.circle(img, (int(c1[0]),int(c1[1])), 2, color=(0, 255, 0), thickness=2)
+    # # draw a point at a
+    # cv2.circle(img, (int(a[0]),int(a[1])), 2, color=(0, 255, 0), thickness=2)
+    # # draw a point at b
+    # cv2.circle(img, (int(b[0]),int(b[1])), 2, color=(0, 255, 0), thickness=2)
+    # # draw a point at c1
+    # cv2.circle(img, (int(c1[0]),int(c1[1])), 2, color=(0, 255, 0), thickness=2)
     
     
 
